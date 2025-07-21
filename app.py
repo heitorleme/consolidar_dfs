@@ -77,8 +77,7 @@ if uploaded_files is not None:
             data=buffer,
             file_name="consolidado_{}.xlsx".format(intervalo),
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            id = "{}".format(intervalo)
-            )
+            key = "{}".format(intervalo))
 
         else:
             st.warning("Os arquivos precisam conter as colunas 'Matched Posts' e 'Main Channel Name'. Extraia novamente os arquivos a partir do CIQ")
