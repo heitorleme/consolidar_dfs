@@ -31,7 +31,7 @@ if uploaded_files is not None:
                     else:
                         df_temporario["publi"] = "UGC"
                         geral = pd.concat([geral, df_temporario])
-                except:
+                except Exception as e:
                     st.error(f"Erro ao ler '{file}': {e}")
         
         concatenado = pd.concat([geral, publi], ignore_index=True)
