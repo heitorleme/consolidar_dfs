@@ -30,8 +30,6 @@ if uploaded_files is not None:
                 df_temporario.columns = df_temporario.columns.str.replace('"', '')  # Limpa espaços e aspas
                 df_temporario["marca"] = marca
 
-                st.write("Prévia do arquivo {}:".format(file.name), df_temporario.head())
-
                 if "publi" in file.name:
                     df_temporario["publi"] = "Publi"
                     publi = pd.concat([publi, df_temporario])
