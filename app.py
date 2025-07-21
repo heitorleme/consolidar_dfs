@@ -26,7 +26,7 @@ if uploaded_files is not None:
                     continue
 
                 file_content = file.read()
-                df_temporario = pd.read_csv(file_content, header=0)
+                df_temporario = pd.read_csv(file, header=0)
                 if df_temporario.empty:
                     st.warning(f"⚠️ Arquivo '{file.name}' não possui dados.")
                     continue
