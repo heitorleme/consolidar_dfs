@@ -8,9 +8,9 @@ from io import BytesIO
 uploaded_files = st.file_uploader("Faça o upload dos arquivos CSV", type="csv", accept_multiple_files=True)
 
 if uploaded_files is not None:
-    intervalos = [extrair_elementos(f.name)[1] for f in uploaded_files]
+    intervalos = np.unique([extrair_elementos(f.name)[1] for f in uploaded_files])
     
-    for intervalo in intervalos.unique():
+    for intervalo in intervalos:
         publi = pd.DataFrame()
         geral = pd.DataFrame()
 
