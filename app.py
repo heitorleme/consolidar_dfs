@@ -16,7 +16,7 @@ if uploaded_files is not None:
 
         for file in uploaded_files:
             if intervalo not in file.name:
-                continue
+                next
             else:
                 marca = extrair_elementos(file.name)[0]
                 try:
