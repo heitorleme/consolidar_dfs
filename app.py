@@ -66,7 +66,6 @@ if uploaded_files is not None:
 
             # Juntar novamente
             concatenado_final = pd.concat([df_ugc, df_publi], ignore_index=True)
-            concatenado_final = atribuir_influ_category(concatenado_final)
 
             buffer = BytesIO()
             concatenado_final.to_excel(buffer, index=False, engine='openpyxl')
