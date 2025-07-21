@@ -39,9 +39,10 @@ def consolidar_tabela(df):
     # Calcula a porcentagem de UGC sobre o total
     tabela['% UGC'] = tabela['UGC'] / (tabela['UGC'] + tabela['Publi']) * 100
     tabela['% UGC'] = tabela['% UGC'].fillna(0).map(lambda x: f"{x:.2f}%")
+    tabela['Total'] = tabela['UGC'] + tabela['Publi']
 
     # Reorganiza as colunas na ordem desejada
-    tabela = tabela[['Publi', 'UGC', '% UGC']]
+    tabela = tabela[['Publi', 'UGC', 'Total', '% UGC']]
 
     # Opcional: resetar índice se quiser que 'marca' vire uma coluna
     # tabela = tabela.reset_index()
