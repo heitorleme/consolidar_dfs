@@ -10,7 +10,9 @@ st.markdown("# Consolidação de Volumetrias - CreatorIQ 🗂️")
 st.markdown("### Upload dos arquivos 📑")
 st.markdown("Este app consolida as volumetrias das postagens UGC e Publi de marcas a partir de arquivos CSV extraídos de uma busca Discovery -> Content no Creator IQ. A ideia é que \
 as mesmas buscas sejam aplicadas para o mesmo período, uma com strings relativas a posts patrocinados (publi) e outra sem; as buscas extraídas como CSV deverão conter as colunas \
-```Creator Name```, ```Total Connections```, ```Matched Posts```, ```Main Channel Name``` e ```Primary Social Network```. Por fim, os arquivos deverão ser salvos no seguinte formato: marca_período_publi.csv (por exemplo, 'dove_1mes_geral.csv')")
+```Creator Name```, ```Total Connections```, ```Matched Posts```, ```Main Channel Name``` e ```Primary Social Network```. Por fim, os arquivos deverão ser salvos no seguinte formato: marca_período_publi.csv (por exemplo, 'dove_1mes_geral.csv')\
+\n \n Como resultados, serão retornados arquivos Excel com os posts consolidados - quebrados entre Marca e Publi/UGC -, com a categoria do influenciador aplicada à coluna ```influ_category```. Esses dados são adequados para novo processamento futuro\
+ou para importação direta ao PowerBI. Serão apresentadas, ainda, as tabelas que consolidam a volumetria por marca. Estas tabelas podem ser baixadas, em formato CSV, através do ícone acima delas.")
 
 uploaded_files = st.file_uploader("Faça o upload dos arquivos CSV", type="csv", accept_multiple_files=True)
 
@@ -75,6 +77,8 @@ if uploaded_files is not None:
             concatenado_final = pd.concat([df_ugc, df_publi], ignore_index=True)
             concatenado_final["influ_category"] = concatenado_final["Total Connections"].apply(atribuir_influ_category)
             concatenado_final["marca"] = concatenado_final["marca"].str.capitalize()
+
+            st.markdown("### Dados relativos ao período de {}".format(intervalo))
 
             buffer = BytesIO()
             concatenado_final.to_excel(buffer, index=False, engine='openpyxl')
