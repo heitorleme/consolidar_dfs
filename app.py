@@ -10,6 +10,10 @@ uploaded_files = st.file_uploader("Faça o upload dos arquivos CSV", type="csv",
 if uploaded_files is not None:
     intervalos = [extrair_elementos(f)[1] for f in uploaded_files]
 
+for f in uploaded_files:
+    st.write("Nome do arquivo:", f.name)
+    st.write("Resultado da extração:", extrair_elementos(f))
+    
     for intervalo in intervalos:
         publi = pd.DataFrame()
         geral = pd.DataFrame()
