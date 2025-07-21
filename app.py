@@ -16,23 +16,23 @@ if uploaded_files is not None:
 
         for file in uploaded_files:
             if intervalo not in file.name:
-                next
-            else:
-                marca = extrair_elementos(file.name)[0]
-                try:
-                    df_temporario = pd.read_csv(file, header=0)
+                continue
+            
+            marca = extrair_elementos(file.name)[0]
+            try:
+                df_temporario = pd.read_csv(file, header=0)
+                df_temporario.columns = df_temporario.columns.str.replace('"', '')  # Limpa espaços e aspas
+                df_temporario["marca"] = marca
 
-                    df_temporario.columns = df_temporario.columns.str.replace('"', '')  # Limpa espaços e aspas
-                    df_temporario["marca"] = marca
-
-                    if "publi" in file.name:
-                        df_temporario["publi"] = "Publi"
-                        publi = pd.concat([publi, df_temporario])
-                    else:
-                        df_temporario["publi"] = "UGC"
-                        geral = pd.concat([geral, df_temporario])
-                except Exception as e:
-                    st.error(f"Erro ao ler '{file}': {e}")
+                if "publi" in file.name:
+                    df_temporario["publi"] = "Publi"
+                    publi = pd.concat([publi, df_temporario])
+                else:
+                    df_temporario["publi"] = "UGC"
+                    geral = pd.concat([geral, df_temporario])
+            except Exception as e:
+                st.error(f"Erro ao ler '{file}': {e}")
+                continue
         
         concatenado = pd.concat([geral, publi], ignore_index=True)
 
