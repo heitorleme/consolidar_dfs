@@ -9,10 +9,6 @@ uploaded_files = st.file_uploader("Faça o upload dos arquivos CSV", type="csv",
 
 if uploaded_files is not None:
     intervalos = [extrair_elementos(f.name)[1] for f in uploaded_files]
-
-for f in uploaded_files:
-    st.write("Nome do arquivo:", f.name)
-    st.write("Resultado da extração:", extrair_elementos(f))
     
     for intervalo in intervalos:
         publi = pd.DataFrame()
@@ -22,7 +18,7 @@ for f in uploaded_files:
             if intervalo not in file.name:
                 continue
             else:
-                marca = extrair_elementos(file)[0]
+                marca = extrair_elementos(file.name)[0]
                 df_temporario = pd.read_csv(file, header=0)
                 st.write("Prévia original do arquivo:", df_temporario.head(5))
 
