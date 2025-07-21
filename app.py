@@ -77,7 +77,7 @@ if uploaded_files is not None:
             data=buffer,
             file_name="consolidado_{}.xlsx".format(intervalo),
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            id = {}.format(intervalo)
+            id = "{}".format(intervalo)
             )
 
         else:
