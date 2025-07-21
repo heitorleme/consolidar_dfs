@@ -33,7 +33,7 @@ if uploaded_files is not None:
                 df_temporario.columns = df_temporario.columns.str.replace('"', '')  # Limpa espaços e aspas
                 df_temporario["marca"] = marca
 
-                st.write("Prévia do arquivo {}:".format(file), df_temporario.head())
+                st.write("Prévia do arquivo {}:".format(file.name), df_temporario.head())
 
                 if "publi" in file.name:
                     df_temporario["publi"] = "Publi"
@@ -42,7 +42,7 @@ if uploaded_files is not None:
                     df_temporario["publi"] = "UGC"
                     geral = pd.concat([geral, df_temporario])
             except Exception as e:
-                st.error(f"Erro ao ler '{file}': {e}")
+                st.error(f"Erro ao ler '{file.name}': {e}")
                 continue
         
         concatenado = pd.concat([geral, publi], ignore_index=True)
