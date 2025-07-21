@@ -21,7 +21,6 @@ if uploaded_files is not None:
                 marca = extrair_elementos(file)[0]
                 df_temporario = pd.read_csv(file)
                 df_temporario.columns = df_temporario.columns.str.replace('"', '')  # Limpa espaços e aspas
-                st.write("Colunas detectadas:", concatenado.columns.tolist())
                 df_temporario["marca"] = marca
 
                 if "publi" in file.name:
@@ -32,6 +31,7 @@ if uploaded_files is not None:
                     geral = pd.concat([geral, df_temporario])
         
         concatenado = pd.concat([geral, publi], ignore_index=True)
+        st.write("Colunas detectadas:", concatenado.columns.tolist())
 
         # Agrupar por 'Main Channel Name' e aplicar lógica de subtração
         if "Main Channel Name" in concatenado.columns and "Matched Posts" in concatenado.columns:
