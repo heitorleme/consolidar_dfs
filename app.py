@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from funcoes import extrair_elementos, atribuir_influ_category
+from funcoes import extrair_elementos, atribuir_influ_category, consolidar_tabela
 from io import BytesIO
 
 uploaded_files = st.file_uploader("Faça o upload dos arquivos CSV", type="csv", accept_multiple_files=True)
@@ -78,6 +78,8 @@ if uploaded_files is not None:
             file_name="consolidado_{}.xlsx".format(intervalo),
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             key = "{}".format(intervalo))
+
+            st.dataframe(consolidar_tabela(concatenado_final))
 
         else:
             st.warning("Os arquivos originais precisam conter as colunas 'Matched Posts' e 'Main Channel Name'. Extraia novamente os arquivos a partir do CIQ")
