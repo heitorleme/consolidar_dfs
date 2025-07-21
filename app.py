@@ -8,7 +8,7 @@ from io import BytesIO
 uploaded_files = st.file_uploader("Faça o upload dos arquivos CSV", type="csv", accept_multiple_files=True)
 
 if uploaded_files is not None:
-    intervalos = [extrair_elementos(f)[1] for f.name in uploaded_files]
+    intervalos = [extrair_elementos(f)[1] for f.str in uploaded_files]
 
 for f in uploaded_files:
     st.write("Nome do arquivo:", f.name)
