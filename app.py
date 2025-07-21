@@ -35,7 +35,6 @@ if uploaded_files is not None:
                     st.error(f"Erro ao ler '{file}': {e}")
         
         concatenado = pd.concat([geral, publi], ignore_index=True)
-        st.write("Colunas detectadas:", concatenado.columns.tolist())
 
         # Agrupar por 'Main Channel Name' e aplicar lógica de subtração
         if "Main Channel Name" in concatenado.columns and "Matched Posts" in concatenado.columns:
