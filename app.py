@@ -19,9 +19,8 @@ if uploaded_files is not None:
                 continue
             else:
                 marca = extrair_elementos(file)[0]
-                df_temporario = pd.read_csv(file, sep=";", encoding='utf-8', engine='python')
-                st.write("Prévia do arquivo:", df_temporario.head())
-                st.write("Colunas detectadas:", df_temporario.columns.tolist())
+                df_temporario = pd.read_csv(file, header=0)
+                st.write("Prévia original do arquivo:", df_temporario.head(5))
 
                 df_temporario.columns = df_temporario.columns.str.replace('"', '')  # Limpa espaços e aspas
                 df_temporario["marca"] = marca
