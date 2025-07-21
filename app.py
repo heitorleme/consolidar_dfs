@@ -31,26 +31,26 @@ if uploaded_files is not None:
         concatenado = pd.concat([geral, publi], ignore_index=True)
 
         # Agrupar por 'Main Channel Name' e aplicar lógica de subtração
-        if "Main Channel Name" in concatenado.columns and "Matched Posts" in concatenado.columns:
+        if '"Main Channel Name"' in concatenado.columns and '"Matched Posts"' in concatenado.columns:
             # Separar os dois tipos
             df_publi = concatenado[concatenado["publi"] == "Publi"]
             df_ugc = concatenado[concatenado["publi"] == "UGC"]
 
             # Agrupar Publi por canal e somar os valores
-            publi_sum = df_publi.groupby("Main Channel Name")["Matched Posts"].sum()
+            publi_sum = df_publi.groupby('"Main Channel Name"')['"Matched Posts"'].sum()
 
             # Aplicar subtração nos UGC
             def subtrai_matched(row):
-                canal = row["Main Channel Name"]
+                canal = row['"Main Channel Name"']
                 if canal in publi_sum:
-                    novo_valor = row["Matched Posts"] - publi_sum[canal]
+                    novo_valor = row['"Matched Posts"'] - publi_sum[canal]
                     return max(novo_valor, 0)
-                return row["Matched Posts"]
+                return row['"Matched Posts"']
 
-            df_ugc["Matched Posts"] = df_ugc.apply(subtrai_matched, axis=1)
+            df_ugc['"Matched Posts"'] = df_ugc.apply(subtrai_matched, axis=1)
 
             # Remover linhas com 'Matched Posts' == 0
-            df_ugc = df_ugc[df_ugc["Matched Posts"] > 0]
+            df_ugc = df_ugc[df_ugc['"Matched Posts"'] > 0]
 
             # Juntar novamente
             concatenado_final = pd.concat([df_ugc, df_publi], ignore_index=True)
