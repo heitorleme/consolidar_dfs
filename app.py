@@ -19,13 +19,9 @@ if uploaded_files is not None:
                 continue
             
             marca = extrair_elementos(file.name)[0]
-            try:
-                content = file.getvalue()
-                if not content or len(content.strip()) == 0:
-                    st.warning(f"⚠️ Arquivo '{file.name}' está vazio.")
-                    continue
 
-                file_content = file.read()
+            try:
+                file.seek(0)
                 df_temporario = pd.read_csv(file, header=0)
                 if df_temporario.empty:
                     st.warning(f"⚠️ Arquivo '{file.name}' não possui dados.")
