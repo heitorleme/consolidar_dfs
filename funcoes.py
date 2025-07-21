@@ -15,7 +15,14 @@ def extrair_elementos(nome_ficheiro):
     return marca, intervalo, tipo
 
 # Criar coluna para categoria do influencer
-def atribuir_influ_category(df):
-    df["influ_category"] = pd.cut(df["Total Connections"],
-                                bins = [0, 10000, 200000, 800000, 2900000, float("Inf")],
-                                labels = ["Nano", "Micro", "Mid", "Macro", "Hero"])
+def atribuir_influ_category(total_connections):
+    if total_connections <= 10000:
+        return "Nano"
+    elif total_connections <= 200000:
+        return "Micro"
+    elif total_connections <= 800000:
+        return "Mid"
+    elif total_connections <= 2999999:
+        return "Macro"
+    else:
+        return "Hero"
