@@ -20,7 +20,8 @@ if uploaded_files is not None:
             else:
                 marca = extrair_elementos(file)[0]
                 df_temporario = pd.read_csv(file)
-                df_temporario.columns = df_temporario.columns.str.replace('"', '')
+                df_temporario.columns = df_temporario.columns.str.replace('"', '')  # Limpa espaços e aspas
+                st.write("Colunas detectadas:", concatenado.columns.tolist())
                 df_temporario["marca"] = marca
 
                 if "publi" in file.name:
