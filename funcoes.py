@@ -43,7 +43,7 @@ def consolidar_tabela(df):
 
     # Reorganiza as colunas na ordem desejada
     tabela = tabela[['Publi', 'UGC', 'Total', '% UGC']]
-    tabela.sort_values(by="Total", inplace=True)
+    tabela.sort_values(by="Total", inplace=True, ascending=False)
 
     # Opcional: resetar índice se quiser que 'marca' vire uma coluna
     # tabela = tabela.reset_index()
