@@ -20,9 +20,20 @@ if uploaded_files is not None:
             
             marca = extrair_elementos(file.name)[0]
             try:
+                content = file.getvalue()
+                if not content or len(content.strip()) == 0:
+                    st.warning(f"⚠️ Arquivo '{file.name}' está vazio.")
+                    continue
+                    
                 df_temporario = pd.read_csv(file, header=0)
+                    if df_temporario.empty:
+                    st.warning(f"⚠️ Arquivo '{file.name}' não possui dados.")
+                    continue
+                        
                 df_temporario.columns = df_temporario.columns.str.replace('"', '')  # Limpa espaços e aspas
                 df_temporario["marca"] = marca
+
+                st.write("Prévia do arquivo:", df_temporario.head())
 
                 if "publi" in file.name:
                     df_temporario["publi"] = "Publi"
