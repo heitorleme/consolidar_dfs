@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from funcoes import extrair_elementos
+from funcoes import extrair_elementos, atribuir_influ_category
 from io import BytesIO
 
 uploaded_files = st.file_uploader("Faça o upload dos arquivos CSV", type="csv", accept_multiple_files=True)
@@ -66,6 +66,7 @@ if uploaded_files is not None:
 
             # Juntar novamente
             concatenado_final = pd.concat([df_ugc, df_publi], ignore_index=True)
+            concatenado_final = atribuir_influ_category(concatenado_final)
 
             buffer = BytesIO()
             concatenado_final.to_excel(buffer, index=False, engine='openpyxl')
