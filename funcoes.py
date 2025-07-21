@@ -26,3 +26,24 @@ def atribuir_influ_category(total_connections):
         return "Macro"
     else:
         return "Hero"
+
+def consolidar_tabela(df):
+    # Agrupamento por marca e publi, somando os "Matched Posts"
+    tabela = df.groupby(['marca', 'publi'])['Matched Posts'].sum().unstack(fill_value=0)
+
+    # Garante que as colunas "Publi" e "UGC" existam
+    for col in ['Publi', 'UGC']:
+        if col not in tabela.columns:
+            tabela[col] = 0
+
+    # Calcula a porcentagem de UGC sobre o total
+    tabela['% UGC'] = tabela['UGC'] / (tabela['UGC'] + tabela['Publi']) * 100
+    tabela['% UGC'] = tabela['% UGC'].fillna(0).map(lambda x: f"{x:.2f}%")
+
+    # Reorganiza as colunas na ordem desejada
+    tabela = tabela[['Publi', 'UGC', '% UGC']]
+
+    # Opcional: resetar índice se quiser que 'marca' vire uma coluna
+    # tabela = tabela.reset_index()
+
+    return tabela
