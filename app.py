@@ -1,7 +1,7 @@
 import streamlit as st
 from funcoes import extrair_elementos
 
-uploaded_files = st.file_uploader("Faça o upload dos arquivos CSV", type="csv")
+uploaded_files = st.file_uploader("Faça o upload dos arquivos CSV", type="csv", accept_multiple_files=True)
 
 if uploaded_files is not None:
     intervalos = [extrair_elementos(f)[1] for f in uploaded_files]
