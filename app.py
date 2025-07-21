@@ -56,13 +56,11 @@ if uploaded_files is not None:
 
             # Juntar novamente
             concatenado_final = pd.concat([df_ugc, df_publi], ignore_index=True)
+            buffer = BytesIO()
+            concatenado_final.to_excel(buffer, index=False, engine='openpyxl')
+            buffer.seek(0)
         else:
             st.warning("Os arquivos precisam conter as colunas 'Matched Posts' e 'Main Channel Name'. Extraia novamente os arquivos a partir do CIQ")
-
-        # Criar botão para baixar o DataFrame
-        buffer = BytesIO()
-        concatenado_final.to_excel(buffer, index=False, engine='openpyxl')
-        buffer.seek(0)
 
         st.download_button(
             label="📥 Excel consolidado para o período de {}".format(intervalo),
