@@ -43,19 +43,19 @@ if uploaded_files is not None:
         concatenado = pd.concat([geral, publi], ignore_index=True)
 
         # Agrupar por 'Main Channel Name' e aplicar lógica de subtração
-        if "Main Channel Name" in concatenado.columns and "Matched Posts" in concatenado.columns:
+        if "Main Channel Name" in concatenado.columns and "Matched Posts" in concatenado.columns and "marca" in concatenado.columns:
             # Separar os dois tipos
             df_publi = concatenado[concatenado["publi"] == "Publi"]
             df_ugc = concatenado[concatenado["publi"] == "UGC"]
 
             # Agrupar Publi por canal e somar os valores
-            publi_sum = df_publi.groupby("Main Channel Name")["Matched Posts"].sum()
+            publi_sum = df_publi.groupby(["Main Channel Name", "marca"])["Matched Posts"].sum()
 
             # Aplicar subtração nos UGC
             def subtrai_matched(row):
-                canal = row["Main Channel Name"]
-                if canal in publi_sum:
-                    novo_valor = row["Matched Posts"] - publi_sum[canal]
+                chave = (row["Main Channel Name"], row["marca"])
+                if chave in publi_sum:
+                    novo_valor = row["Matched Posts"] - publi_sum[chave]
                     return max(novo_valor, 0)
                 return row["Matched Posts"]
 
@@ -78,4 +78,4 @@ if uploaded_files is not None:
             key = "{}".format(intervalo))
 
         else:
-            st.warning("Os arquivos precisam conter as colunas 'Matched Posts' e 'Main Channel Name'. Extraia novamente os arquivos a partir do CIQ")
+            st.warning("Os arquivos originais precisam conter as colunas 'Matched Posts' e 'Main Channel Name'. Extraia novamente os arquivos a partir do CIQ")
